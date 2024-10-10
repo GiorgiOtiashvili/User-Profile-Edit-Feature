@@ -66,6 +66,11 @@ export class UserProfileEditComponent implements OnInit {
     }
   }
 
+  removeImage() {
+    this.profilePicture = null;
+    this.profileForm.get('profilePicture')?.setValue(null);
+  }
+
   onSubmit() {
     if (this.profileForm.valid) {
       this.loading = true;

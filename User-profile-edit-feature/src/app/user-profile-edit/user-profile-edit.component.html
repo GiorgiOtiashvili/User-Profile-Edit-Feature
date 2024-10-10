@@ -58,10 +58,22 @@
         </mat-error>
       </mat-form-field>
 
-      <input type="file" (change)="onFileChange($event)" />
-      <img *ngIf="profilePicture" [src]="profilePicture" class="w-20" />
+      <div class="h-20">
+        <input type="file" (change)="onFileChange($event)" />
+        <div *ngIf="profilePicture" class="relative w-20 h-20 mt-3">
+          <img [src]="profilePicture" class="w-full object-cover" />
 
-      <div class="mt-4 flex gap-4">
+          <button
+            type="button"
+            (click)="removeImage()"
+            class="absolute top-0 right-0 bg-gray-700 text-white rounded-full w-6 h-6 flex items-center justify-center"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-12 flex gap-4">
         <button mat-flat-button type="submit" [disabled]="profileForm.invalid">
           Save
         </button>
