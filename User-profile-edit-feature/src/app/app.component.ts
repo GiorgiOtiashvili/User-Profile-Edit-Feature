@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { UserProfileService } from './services/user-profile.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,9 @@ export class AppComponent {
   title = 'User-profile-edit-feature';
   buttonText: string = 'Edit profile';
 
+  private userService = inject(UserProfileService);
+  userName = '';
+
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -20,6 +24,10 @@ export class AppComponent {
           : (this.buttonText = 'Edit profile');
       }
     });
+
+    this.userService
+      .loadUserProfile()
+      .subscribe((data) => (this.userName = data[0].firstName));
   }
 
   navigate() {
