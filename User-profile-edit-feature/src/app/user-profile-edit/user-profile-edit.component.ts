@@ -10,17 +10,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { UserProfileService } from '../services/user-profile.service';
 import { UserProfile } from '../models/user-profile';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-user-profile-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, MatInputModule, NgIf, MatButtonModule],
+  imports: [
+    ReactiveFormsModule,
+    MatInputModule,
+    NgIf,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './user-profile-edit.component.html',
   styleUrl: './user-profile-edit.component.scss',
 })
 export class UserProfileEditComponent implements OnInit {
   profileForm: FormGroup;
   profilePicture: string | ArrayBuffer | null | undefined = null;
+  loading = false;
 
   private userService = inject(UserProfileService);
 
@@ -60,14 +68,20 @@ export class UserProfileEditComponent implements OnInit {
 
   onSubmit() {
     if (this.profileForm.valid) {
+      this.loading = true;
+
       const userFormData: UserProfile = {
         ...this.profileForm.value,
         id: 1,
       };
 
       this.userService.updateUserProfile(userFormData).subscribe({
-        next: () => alert('User profile updated successfully!'),
-        error: () => alert('Error updating profile!'),
+        next: () => {
+          (this.loading = false), alert('User profile updated successfully!');
+        },
+        error: () => {
+          (this.loading = false), alert('Error updating profile!');
+        },
       });
     }
   }
