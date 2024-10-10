@@ -57,7 +57,7 @@
     </mat-form-field>
 
     <input type="file" (change)="onFileChange($event)" />
-    <img *ngIf="profilePicture" [src]="profilePicture" />
+    <img *ngIf="profilePicture" [src]="profilePicture" class="w-20" />
 
     <div class="mt-4 flex gap-4">
       <button mat-flat-button type="submit" [disabled]="profileForm.invalid">
