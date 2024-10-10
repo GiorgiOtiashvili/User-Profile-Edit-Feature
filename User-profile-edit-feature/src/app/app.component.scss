@@ -1,0 +1,15 @@
+#edit-button {
+  width: 120px;
+  height: 50px;
+  border-radius: 20px;
+  padding: 5px 15px;
+  background-color: white;
+  color: blue;
+  transition: 0.8s;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    transition: 0.8s;
+  }
+}

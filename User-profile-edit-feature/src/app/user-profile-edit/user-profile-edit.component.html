@@ -1,0 +1,69 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div class="flex flex-col gap-y-2">
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="firstName" />
+      <mat-error
+        *ngIf="
+          profileForm.get('firstName')?.invalid &&
+          profileForm.get('firstName')?.touched
+        "
+      >
+        First Name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="lastName" />
+      <mat-error
+        *ngIf="
+          profileForm.get('lastName')?.invalid &&
+          profileForm.get('lastName')?.touched
+        "
+      >
+        Last Name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Email"
+        formControlName="email"
+        type="email"
+      />
+      <mat-error
+        *ngIf="
+          profileForm.get('email')?.invalid && profileForm.get('email')?.touched
+        "
+      >
+        Valid Email is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Phone Number"
+        formControlName="phoneNumber"
+      />
+      <mat-error
+        *ngIf="
+          profileForm.get('phoneNumber')?.invalid &&
+          profileForm.get('phoneNumber')?.touched
+        "
+      >
+        Phone Number must contain only numbers.
+      </mat-error>
+    </mat-form-field>
+
+    <input type="file" (change)="onFileChange($event)" />
+    <img *ngIf="profilePicture" [src]="profilePicture" />
+
+    <div class="mt-4 flex gap-4">
+      <button mat-flat-button type="submit" [disabled]="profileForm.invalid">
+        Save
+      </button>
+      <button mat-flat-button type="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+</form>
